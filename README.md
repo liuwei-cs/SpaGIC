@@ -29,7 +29,7 @@ All datasets used in this work can be downloaded from the link below.
 (2) the 10x Visium human breast cancer dataset: https://www.10xgenomics.com/datasets/human-breast-cancer-block-a-section-1-1-standard-1-1-0 
 (3) the anterior section of the 10x Visium mouse brain: https://www.10xgenomics.com/resources/datasets/mouse-brain-serial-section-1-sagittal-anterior-1-standard-1-1-0
 (4) the Stereo-seq mouse olfactory bulb dataset: https://github.com/STOmics/SAW/tree/main/Test_Data
-(5) the mouse Slide-seqV2 olfactory bulb dataset: https://singlecell.broadinstitute.org/single_cell/study/SCP815/highly-sensitive-spatial-transcriptomics-at-near-cellular-resolution-with-slide-seqv2#study-summary
+(5) the Slide-seqV2 mouse olfactory bulb dataset: https://singlecell.broadinstitute.org/single_cell/study/SCP815/highly-sensitive-spatial-transcriptomics-at-near-cellular-resolution-with-slide-seqv2#study-summary
 (6) the STARmap mouse visual cortex dataset: https://drive.google.com/drive/folders/1I1nxheWlc2RXSdiv24dex3YRaEh780my?usp=sharing.
 (7) the osmFISH mouse somatosensory cortex dataset: https://linnarssonlab.org/osmFISH/
 
