@@ -6,10 +6,9 @@
 SpaGIC is a novel graph-based self-supervised contrastive learning framework for effective spatial transcriptomics analysis. In the workflow of SpaGIC, a GCN-based auto-encoder is utilized to learn spots representation by iteratively aggregating information from neighboring nodes. Initially, the framework employs the KNN algorithm to construct an adjacency graph according to spots spatial location, and takes preprocessed gene expression data as nodes feature (Fig. A). Based on the embeddings, SpaGIC reconstructs the adjacency to enhance spots representation through maximizing graph structural mutual information both edge-wise and local neighborhood-wise in a self-supervised manner (Fig. B). Concurrently, an InfoNCE-like contrastive learning loss is integrated into the model training to preserve the spatial neighbor information by grouping spatially adjacent spots and separating spatially non-adjacent spots in latent space. (Fig. C). Furthermore, to fully exploit the gene expression profiles, SpaGIC reconstructs the raw gene expression matrix from latent embeddings using a decoder, while adhering to the constraint of MSE (Mean Squared Error) loss (Fig. D). The resulting output from SpaGIC is versatile and can be applied across a range of downstream spatial transcriptomics analysis tasks, such as spatial domain identification, data denoising, visualization, trajectory inference and multi-slice joint analysis (Fig. E).
 
 ## Requirements
-You'll need to install the following packages in order to run the codes.
 * python==3.8
-* torch>=2.1.0
-* cudnn>=11.8
+* torch==2.1.0
+* cudnn==11.8
 * numpy==1.24.3
 * pandas==2.0.3
 * matplotlib==3.7.3
