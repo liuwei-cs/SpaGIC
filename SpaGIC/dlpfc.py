@@ -41,7 +41,7 @@ if __name__ == "__main__":
     for i in range(len(datasets)):
         dataset = datasets[i]
         # read data
-        file_fold = '../../Data/DLPFC/' + dataset
+        file_fold = '../Data/DLPFC/' + dataset
         adata = sc.read_visium(file_fold, count_file='filtered_feature_bc_matrix.h5', load_images=True)
         adata.var_names_make_unique()
 
