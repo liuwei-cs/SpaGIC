@@ -19,7 +19,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 from train import Train
 
-# 小鼠嗅球数据集
+# MOB
 if __name__ == "__main__":
     # Run device, by default, the package is implemented on 'cpu'. We recommend using GPU.
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
