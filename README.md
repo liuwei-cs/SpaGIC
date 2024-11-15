@@ -34,4 +34,4 @@ All datasets used in this work can be downloaded from the link below.
 (7) the osmFISH mouse somatosensory cortex dataset: https://linnarssonlab.org/osmFISH/
 
 ## Citation
-Liu et al. 
+Liu et al. SpaGIC: graph-informed clustering in spatial transcriptomics via self-supervised contrastive learning. ***Briefings in Bioinformatics***, 2024, 25(6): bbae578.
