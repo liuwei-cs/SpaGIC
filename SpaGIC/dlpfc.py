@@ -27,21 +27,21 @@ if __name__ == "__main__":
 
     datasets = ['151507', '151508', '151509', '151510', '151669', '151670',
                 '151671', '151672', '151673', '151674', '151675', '151676']
-    datasets = ['151673']
+    # datasets = ['151673']
     # the number of clusters
     n_clusters = [7, 7, 7, 7, 5, 5, 5, 5, 7, 7, 7, 7]
-    n_clusters = [7]
+    # n_clusters = [7]
 
     n_neighbor = 5
     epochs = 500
-    coord_type = 'spatial'
+    protocol='10X'
     weights = [[60, 0.01, 0.01]]
 
     adatas = []
     for i in range(len(datasets)):
         dataset = datasets[i]
         # read data
-        file_fold = '../Data/DLPFC/' + dataset
+        file_fold = '../../Data/DLPFC/' + dataset
         adata = sc.read_visium(file_fold, count_file='filtered_feature_bc_matrix.h5', load_images=True)
         adata.var_names_make_unique()
 
@@ -51,19 +51,10 @@ if __name__ == "__main__":
         # filter out NA nodes
         adata = adata[~pd.isnull(adata.obs['ground_truth'])]
 
-        # # Ground Truth
-        # sc.pl.spatial(adata, img_key="hires", color='ground_truth', title=f'{dataset}', frameon=False, show=False)
-        # plt.savefig('../Result/Ground_Truth/' + f'{dataset}.png', bbox_inches='tight', dpi=300)
-        # plt.savefig('../Result/Ground_Truth/' + f'{dataset}.pdf', bbox_inches='tight', dpi=300)
-        # # plt.show()
-        # plt.close()
-
         adatas.append(adata)
         # print(adata)
 
     for mse_weight, graph_weight, nce_weight in weights:
-        ari_ = []
-        ari_ref_ = []
         for i in range(len(datasets)):
             dataset = datasets[i]
             n_cluster = n_clusters[i]
@@ -73,30 +64,30 @@ if __name__ == "__main__":
             print(set)
             print("*" * 70)
             model = Train(adata, device=device, epochs=epochs, mse_weight=mse_weight,
-                          graph_weight=graph_weight, nce_weight=nce_weight, coord_type=coord_type,
-                          n_neighbor=n_neighbor, n_cluster=n_cluster, protocol='10X')
+                          graph_weight=graph_weight, nce_weight=nce_weight,
+                          n_neighbor=n_neighbor, n_cluster=n_cluster, protocol=protocol)
 
             # train model
             adata = model.train()
 
+            key = 'domain_refined'  # 'domain_refined'
             method = 'mclust'  # mclust, leiden, louvain, kmeans
             cluster(adata, n_cluster, method)
-            getScore(adata, key='domain')
-            ari = adata.uns['ARI']
-            ari_.append(round(ari, 3))
-            # refining
             refine(adata, radius=50, key='domain')
-            getScore(adata, key='domain_refined')
-            ari_ref = adata.uns['ARI']
-            ari_ref_.append(round(ari_ref, 3))
-            print(dataset, ' ARI:', ari, ' ARI_ref:', ari_ref)
+            getScore(adata, key=key)
 
-            DLPFC_visual(adata, dataset, key='domain_refined')
+            if 'ground_truth' in adata.obs.keys():
+                ARI = adata.uns['ARI']
+                NMI = adata.uns['NMI']
+                print(dataset, ' ARI: ', ARI, '; NMI: ', NMI)
+            else:
+                SC = adata.uns['SC']
+                DB = adata.uns['DB']
+                print(dataset, ' SC: ', SC, '; DB: ', DB)
+
+            # DLPFC_visual(adata, dataset, key=key)
 
             # clear memory
             import gc
             gc.collect()
             del adata
-
-        print(ari_)
-        print(ari_ref_)
